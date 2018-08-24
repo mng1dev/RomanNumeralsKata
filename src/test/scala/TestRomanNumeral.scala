@@ -91,6 +91,10 @@ class TestRomanNumeral extends FunSuite {
     assert(convert(19) == "XIX")
   }
 
+  test ("convert should return 'XXI' if the given input is 21") {
+    assert(convert(21) == "XXI")
+  }
+
   test ("convert should return 'CCCLXV' if the given input is 365") {
     assert(convert(365) == "CCCLXV")
   }
