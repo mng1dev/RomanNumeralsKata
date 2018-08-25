@@ -12,6 +12,7 @@ object RomanNumeral extends App {
     */
 
   def convert(number: Int): String = {
+    require(number < 4999)
     def digits: Array[Int] = {
       val numberDigits = ArrayBuffer[Int]()
       var arabNumber = number
@@ -36,15 +37,17 @@ object RomanNumeral extends App {
       2 -> ("C", "D", "M")
     )
 
-    if (positionalOrder > 2) "M" * number
+    if (positionalOrder == 3) "M" * number
     else {
       val romanNumeralsForPosition = romanNumerals.get(positionalOrder).get
-      if (number == 0) ""
-      else if (number == 4) romanNumeralsForPosition._1 + romanNumeralsForPosition._2
-      else if (number == 5) romanNumeralsForPosition._2
-      else if (number == 9) romanNumeralsForPosition._1 + romanNumeralsForPosition._3
-      else if (number > 5 && number < 9) romanNumeralsForPosition._2 + (romanNumeralsForPosition._1 * (number - 5))
-      else romanNumeralsForPosition._1 * number
+      number match {
+        case 0 => ""
+        case 4 => romanNumeralsForPosition._1 + romanNumeralsForPosition._2
+        case 5 => romanNumeralsForPosition._2
+        case 9 => romanNumeralsForPosition._1 + romanNumeralsForPosition._3
+        case _ if (number > 5 && number < 9) => romanNumeralsForPosition._2 + (romanNumeralsForPosition._1 * (number - 5))
+        case _ => romanNumeralsForPosition._1 * number
+      }
     }
   }
 }
